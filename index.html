@@ -81,12 +81,21 @@
         margin: 20px 10px 10px 0px;
     }
 
+    #privKey {
+        margin-bottom: 0px;
+    }
+
+    #privQr {
+        margin-top: 0px;
+        margin-left: -8px;
+    }
+
     #bitcoinQr {
         margin-bottom: 0px;
     }
 
     #reveal-passphrase {
-        visibility: hidden;
+        visibility: visible;
         font-weight: bold;
     }
 
@@ -183,6 +192,12 @@
 								bech32QR.make();
 
 								var div = document.createElement("div");
+								
+								//setup priv QR code
+								var privQr = qrcode(8, errorCorrectionLevel);
+                    						privQr.addData(privateKey);
+                        					privQr.make();
+
 
 								//Create & Set Address URLs
 								var url = "https://blockstream.info/address/";
@@ -201,7 +216,7 @@
 									"<br /><span>Mnemonic Phrase:</span><p>" + mnemonic + "</p>" +
 									"<br /><span>Segwit P2SH Address " + p2shAddressPath + ":<br /></span><a href='" + p2shURL + "' target='_blank'>" + p2shAddress + "</a><br />" +
 									"<br /><span>Bech32 Address " + bech32AddressPath + ":<br /></span><a href='" + bech32URL + "' target='_blank'>" + bech32Address + "</a>" +
-									"</div></div>" +
+									"</div></div>" + 		                    					"<p>Private Key: " + privateKey + "</p><p id='privKey'>Private Key:</p><p id='privQr'>"+ privQr.createImgTag() +"</p></div></div>" +
 									"<div class='cell'><div class='content2'>" +
 									"<p id='bitcoinQr' align='center'>Segwit P2SH Address</p>" + p2shQR.createImgTag() + "" +
 									"<p id='bitcoinQr' align='center'>Bech32 Address</p>" + bech32QR.createImgTag() + "" +
